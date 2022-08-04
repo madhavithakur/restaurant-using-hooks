@@ -19,9 +19,9 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from "re
         }
     };
 
-    const RenderComments = ({comments}) => {
-        if(comments!=null) {
-            const commentsList = comments.map(comment => {
+    const RenderComments = ({dish}) => {
+        if(dish!=null && dish.comments!=null) {
+            const commentsList = dish.comments.map(comment => {
                 return (
                     <li key={comment.id}>
                         <div>
@@ -48,7 +48,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from "re
         return(
             <div className="row">
                 <RenderDish dish={props.dish}/>
-                <RenderComments comments={props.dish.comments} />
+                <RenderComments dish={props.dish} />
             </div>
         );
     }
