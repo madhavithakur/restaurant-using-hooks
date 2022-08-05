@@ -10,7 +10,6 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from "re
                         </CardImgOverlay>
                     </Card>
         );
-
     }
 
     const Menu = (props) => {
