@@ -41,6 +41,7 @@
     "font-awesome": "^4.7.0",
     "react-popper": "^2.3.0",
     "react-redux": "^8.0.2",
+    "react-redux-form": "^1.16.8",
     "react-router-dom": "^6.3.0",
     "reactstrap": "^9.1.2",
     "redux": "^4.2.0"
