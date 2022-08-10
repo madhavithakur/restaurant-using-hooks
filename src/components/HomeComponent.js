@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle } from "reactstrap";
 
 const RenderCard = ({item}) => {
