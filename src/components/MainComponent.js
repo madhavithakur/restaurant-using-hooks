@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import {Routes, Route, useParams, useNavigate} from 'react-router-dom';
 import { connect } from 'react-redux';
 import About from './AboutComponent';
+import { addComment, fetchDishes } from '../redux/ActionCreators';
 
 export const withRouter = (Component) => {
   const Wrapper = (props) => {
@@ -33,15 +34,26 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  fetchDishes: () => {dispatch(fetchDishes())}
+});
+
 class Main extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.fetchDishes();
   }
   
   render(){
     const HomePage = () => {
         return (
-            <Home dish={this.props.dishes.filter(dish=>dish.featured)[0]} 
+            <Home dish={this.props.dishes.dishes.filter(dish=>dish.featured)[0]}
+                  dishesLoading={this.props.dishes.isLoading}
+                  dishesErrMess={this.props.dishes.errMess}
                   promotion={this.props.promotions.filter(promotion=>promotion.featured)[0]}
                   leader={this.props.leaders.filter(leader=>leader.featured)[0]} />
         );
@@ -50,8 +62,11 @@ class Main extends Component {
     const DishWithId = () => {
       const {dishId} = useParams();
         return (
-          <Dishdetail dish={this.props.dishes.filter(dish=>dish.id === parseInt(dishId, 10))[0]} 
-                      comments={this.props.comments.filter(comment=>comment.dishId === parseInt(dishId, 10))}/>
+          <Dishdetail dish={this.props.dishes.dishes.filter(dish=>dish.id === parseInt(dishId, 10))[0]} 
+                isLoading={this.props.dishes.isLoading}
+                errMess={this.props.dishes.errMess}      
+                comments={this.props.comments.filter(comment=>comment.dishId === parseInt(dishId, 10))}
+                addComment={this.props.addComment}/>
         );
     }
 
@@ -72,4 +87,4 @@ class Main extends Component {
   } 
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
