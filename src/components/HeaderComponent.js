@@ -1,8 +1,8 @@
-import React, {Component} from "react";
+import React, {Component, PureComponent} from "react";
 import {Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Modal, ModalHeader, ModalBody, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import {NavLink} from 'react-router-dom';
 
-class Header extends Component {
+class Header extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
