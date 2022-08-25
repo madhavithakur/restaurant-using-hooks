@@ -1,21 +1,35 @@
 import Main from './components/MainComponent';
 import './App.css';
-import React, { Component } from 'react';
+import React, { createContext, useReducer } from 'react';
 import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux';
 import { ConfigureStore } from './redux/configureStore';
+import { applyMiddleware, combineReducers } from 'redux';
+import { createForms } from 'react-redux-form';
+import { Dishes } from './redux/dishes';
+import { Comments } from './redux/comments';
+import { Promotions } from './redux/promotions';
+import { Leaders } from './redux/leaders';
+import { Feedback } from './redux/forms';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
-const store = ConfigureStore();
-const App = (props) => {
-    return (
-      <Provider store={store}>
+
+
+export const store = ConfigureStore();
+
+const App = () => {
+    return (    
         <BrowserRouter>
           <div className='App'>
-            <Main/>
+              <Main/>
           </div>  
         </BrowserRouter>
-      </Provider>
     );
 }
+
+App();
+
+store.subscribe(App);
 
 export default App;

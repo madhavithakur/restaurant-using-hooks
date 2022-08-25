@@ -6,26 +6,26 @@ export const addComment = (comment) => ({
     payload: comment
 });
 
-export const fetchDishes = () => (dispatch) => {
+export const fetchDishes = () => async (dispatch) => {
     dispatch(dishesLoading());
-
-    return fetch(baseUrl+ 'dishes')
-        .then(response =>{
-            if(response.ok) {
-                return response;
-            } else {
-                let error = new Error("Error " + response.status + " : " + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        },
-        error => {
-            const errMess = new Error(error.message);
-            throw errMess;
-        })
-        .then(response => response.json())
-        .then(dishes => dispatch(addDishes(dishes)))
-        .catch(error => dispatch(dishesFailed(error.message)));
+    const dishesData = await fetch(baseUrl+ 'dishes');
+    return dishesData
+            .then(response =>{
+                if(response.ok) {
+                    return response;
+                } else {
+                    let error = new Error("Error " + response.status + " : " + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {
+                const errMess = new Error(error.message);
+                throw errMess;
+            })
+            .then(response => response.json())
+            .then(dishes => dispatch(addDishes(dishes)))
+            .catch(error => dispatch(dishesFailed(error.message)));
 };
 
 export const dishesLoading = () =>({
@@ -42,8 +42,9 @@ export const addDishes = (dishes) => ({
     payload: dishes
 });
 
-export const fetchComments = () => (dispatch) => {
-    return fetch(baseUrl+ 'comments')
+export const fetchComments = () => async (dispatch) => {
+    const commentsData = await fetch(baseUrl+ 'comments');
+    return commentsData
         .then(response =>{
             if(response.ok) {
                 return response;
@@ -72,10 +73,11 @@ export const addComments = (comments) => ({
     payload: comments
 });
 
-export const fetchLeaders = () => (dispatch) => {
+export const fetchLeaders = () => async (dispatch) => {
     dispatch(leadersLoading());
 
-    return fetch(baseUrl+ 'leaders')
+    const leadersData = await fetch(baseUrl+ 'leaders');
+    return leadersData
         .then(response =>{
             if(response.ok) {
                 return response;
@@ -108,10 +110,11 @@ export const addLeaders = (leaders) => ({
     payload: leaders
 });
 
-export const fetchPromos = () => (dispatch) => {
+export const fetchPromos = () => async (dispatch) => {
     dispatch(promosLoading(true));
 
-    return fetch(baseUrl+ 'promotions')
+    const promosData = fetch(baseUrl+ 'promotions');
+    return promosData
         .then(response =>{
             if(response.ok) {
                 return response;
@@ -144,7 +147,7 @@ export const addPromos = (promotions) => ({
     payload: promotions
 });
 
-export const postFeedBack = (feedback) => dispatch => {
+export const postFeedBack = (feedback) => async(dispatch) => {
     const newFeedback = {...feedback};
     newFeedback.date = new Date().toISOString();
     return fetch(baseUrl+'feedback', {
@@ -181,7 +184,7 @@ export const addFeedback = (feedback) =>({
     payload: feedback
 });
 
-export const postComment =(dishId, rating, author, comment) => dispatch => {
+export const postComment =(dishId, rating, author, comment) => async (dispatch) => {
 
     const newComment = {
         dishId: dishId,
