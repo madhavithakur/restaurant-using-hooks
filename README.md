@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ## Setting up a web server using json-server
 
-json-server provides a very simple way to setup a web server that supports full-fledged REST API server. We're configuring and start a server using json-server to enable serving transactionsData to our react app.
+json-server provides a very simple way to setup a web server that supports full-fledged REST API server. We're configuring and start a server using json-server to enable serving data to our react app.
 
 ### `Installing json-server`
 
