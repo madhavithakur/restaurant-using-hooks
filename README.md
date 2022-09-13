@@ -6,6 +6,51 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## Setting up a web server using json-server
+
+json-server provides a very simple way to setup a web server that supports full-fledged REST API server. We're configuring and start a server using json-server to enable serving transactionsData to our react app.
+
+### `Installing json-server`
+
+json-server is a node module, and hence can be installed globally by typing the following at the command prompt:
+
+```
+     npm install json-server -g
+```
+If you are using OSX or Linux, use sudo at the front of the command. This will install json-server that can be started from the command line from any folder on your computer.
+
+### `Configuring the Server`
+
+- Locate the folder named **src/server/json-server**, and move to this folder.
+
+- Review the db.json file provided inside this folder for sample records.
+        
+- Move to this folder in your terminal window, and type the following at the command prompt to start the server:
+
+```
+     json-server --watch db.json -p 3001 -d 2000
+```
+- This should start up a server at port number 3001 on your machine with 2 seconds of delay to simulate networking roundtrip time. The data from this server can be accessed by typing the following addresses into your browser address bar:
+
+```
+    http://localhost:3001/dishes
+    http://localhost:3001/comments
+    http://localhost:3001/promotions
+    http://localhost:3001/leaders
+    http://localhost:3001/feedback
+```
+
+## Available Scripts
+
+In the project home directory, you can run:
+
+```
+It's important to setup web server using json-server before loading the react UI app
+```
+### `npm install`
+
+Install the dev dependencies required by this project by running npm install.
+
 ### `npm start`
 
 Runs the app in the development mode.\
