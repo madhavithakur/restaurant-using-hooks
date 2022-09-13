@@ -1,8 +1,8 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-import { Dishes } from './dishes';
+import { Dishes } from './reducers/dishes';
 import { Comments } from './comments';
 import { Promotions } from './promotions';
-import { Leaders } from './leaders';
+import { Leaders } from './reducers/leaders';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { createForms } from 'react-redux-form';

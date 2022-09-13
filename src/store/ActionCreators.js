@@ -6,10 +6,8 @@ export const addComment = (comment) => ({
     payload: comment
 });
 
-export const fetchDishes = () => async (dispatch) => {
-    dispatch(dishesLoading());
-    const dishesData = await fetch(baseUrl+ 'dishes');
-    return dishesData
+export const fetchDishes = () => {
+    return fetch(baseUrl+ 'dishes')
             .then(response =>{
                 if(response.ok) {
                     return response;
@@ -24,8 +22,7 @@ export const fetchDishes = () => async (dispatch) => {
                 throw errMess;
             })
             .then(response => response.json())
-            .then(dishes => dispatch(addDishes(dishes)))
-            .catch(error => dispatch(dishesFailed(error.message)));
+            .catch(error=>error.message);
 };
 
 export const dishesLoading = () =>({
@@ -42,9 +39,8 @@ export const addDishes = (dishes) => ({
     payload: dishes
 });
 
-export const fetchComments = () => async (dispatch) => {
-    const commentsData = await fetch(baseUrl+ 'comments');
-    return commentsData
+export const fetchComments = () => {
+    return fetch(baseUrl+ 'comments')
         .then(response =>{
             if(response.ok) {
                 return response;
@@ -59,8 +55,7 @@ export const fetchComments = () => async (dispatch) => {
             throw errMess;
         })
         .then(response => response.json())
-        .then(comments => dispatch(addComments(comments)))
-        .catch(error => dispatch(commentsFailed(error.message)));;
+        .catch(error => error.message);
 };
 
 export const commentsFailed = (errMess) => ({
@@ -73,11 +68,8 @@ export const addComments = (comments) => ({
     payload: comments
 });
 
-export const fetchLeaders = () => async (dispatch) => {
-    dispatch(leadersLoading());
-
-    const leadersData = await fetch(baseUrl+ 'leaders');
-    return leadersData
+export const fetchLeaders = () => {
+    return fetch(baseUrl+ 'leaders')
         .then(response =>{
             if(response.ok) {
                 return response;
@@ -92,8 +84,7 @@ export const fetchLeaders = () => async (dispatch) => {
             throw errMess;
         })
         .then(response => response.json())
-        .then(leaders => dispatch(addLeaders(leaders)))
-        .catch(error => dispatch(leadersFailed(error.message)));
+        .catch(error => error.message);
 };
 
 export const leadersLoading = () =>({
@@ -110,11 +101,8 @@ export const addLeaders = (leaders) => ({
     payload: leaders
 });
 
-export const fetchPromos = () => async (dispatch) => {
-    dispatch(promosLoading(true));
-
-    const promosData = fetch(baseUrl+ 'promotions');
-    return promosData
+export const fetchPromos = () => {
+    return fetch(baseUrl+ 'promotions')
         .then(response =>{
             if(response.ok) {
                 return response;
@@ -129,8 +117,7 @@ export const fetchPromos = () => async (dispatch) => {
             throw errMess;
         })
         .then(response => response.json())
-        .then(promotions => dispatch(addPromos(promotions)))
-        .catch(error => dispatch(promosFailed(error.message)));;
+        .catch(error => error.message);
 };
 
 export const promosLoading = () =>({
@@ -184,7 +171,7 @@ export const addFeedback = (feedback) =>({
     payload: feedback
 });
 
-export const postComment =(dishId, rating, author, comment) => async (dispatch) => {
+export const postComment =(dishId, rating, author, comment) => {
 
     const newComment = {
         dishId: dishId,
@@ -217,7 +204,6 @@ export const postComment =(dishId, rating, author, comment) => async (dispatch) 
         throw errMess;
     })
     .then(response => response.json())
-    .then(comment => dispatch(addComment(comment)))
     .catch(error => {
         console.log(error.message);
         alert("Your comment could not be posted\nError: "+ error.message);
